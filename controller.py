@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 
-from model import DAL as db
+from model import tasklist_DAL as db
 
 app = Flask(__name__, template_folder='view/templates', static_folder='view/static')
 
@@ -23,6 +23,11 @@ def remove_task():
     task = request.form['removed_task']
     db.remove_task(task)
     return redirect(url_for('index'))
+
+@app.route('/login', methods=['POST'])
+def login():
+    username = request.form['username']
+
 
 
 if __name__ == '__main__':

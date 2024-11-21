@@ -7,33 +7,33 @@ def set_up():
         "tasks": []
     }
 
-    f = open('database.json', 'w')
+    f = open('database/tasklist_DB.json', 'w')
     json.dump(init_db, f)
     f.close()
 
 
 def write_to_db(data):
-    f = open('database.json', 'w')
+    f = open('database/tasklist_DB.json', 'w')
     json.dump(data, f)
     f.close()
 
 
 def get_db_as_dict():
-    f = open('database.json', 'r')
+    f = open('database/tasklist_DB.json', 'r')
     data = json.load(f)
     f.close()
     return data
 
 
-def add_task(task):
+def add_task(user, task):
     data = get_db_as_dict()
-    data['tasks'].append(task)
+    data[user]['tasks'].append(task)
     write_to_db(data)
-def get_tasks():
+def get_tasks(user):
     data = get_db_as_dict()
-    return data['tasks']
+    return data[user]['tasks']
 
-def remove_task(task):
+def remove_task(user, task):
     data = get_db_as_dict()
-    data['tasks'].remove(task)
+    data[user]['tasks'].remove(task)
     write_to_db(data)
