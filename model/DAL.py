@@ -29,7 +29,11 @@ def add_task(task):
     data = get_db_as_dict()
     data['tasks'].append(task)
     write_to_db(data)
-
+def get_tasks():
+    data = get_db_as_dict()
+    return data['tasks']
 
 def remove_task(task):
-    del get_db_as_dict()[task]
+    data = get_db_as_dict()
+    data['tasks'].remove(task)
+    write_to_db(data)
