@@ -29,15 +29,28 @@ def add_task(user, task):
     data = get_db_as_dict()
     data[user]['tasks'].append(task)
     write_to_db(data)
+
+
 def get_tasks(user):
     data = get_db_as_dict()
     return data[user]['tasks']
+
 
 def remove_task(user, task):
     data = get_db_as_dict()
     data[user]['tasks'].remove(task)
     write_to_db(data)
 
+
 def get_users_as_list():
     data = get_db_as_dict()
     return list(data)
+
+
+def add_new_user(user):
+    data = get_db_as_dict()
+    data[user] = {
+        "tasks": []
+    }
+    write_to_db(data)
+

@@ -16,7 +16,7 @@ def index():
 
     username = session['username']
     tasklist = db.get_tasks(username)
-    return render_template('index.html', tasklist=tasklist)
+    return render_template('index.html', tasklist=tasklist, username=username)
 
 
 @app.route('/add_task', methods=['POST'])
@@ -46,8 +46,38 @@ def login():
         return redirect(url_for('index'))
     return render_template('login_form.html', error="Username not found!")
 
+@app.route('/login_form')
+def show_login_form():
+    if "logged_in" in session:
+        return redirect(url_for('index'))
+    error = request.args.get('error')
+    if error is None:
+        error = ''
+    return render_template('login_form.html', error=error)
+
+@app.route('/register_form')
+def show_register_form():
+    if "logged_in" in session:
+        return redirect(url_for('index'))
+    error = request.args.get('error')
+    if error is None:
+        error = ''
+    return render_template('register_form.html', error=error)
 
 
+@app.route('/register', methods=['POST'])
+def register():
+    users = db.get_users_as_list()
+    username = request.form['username']
+    if username in users:
+        render_template('register_form.html', error="Username already registered!")
+    db.add_new_user(username)
+    return render_template('login_form.html', error="New user registered!")
 
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    session.pop('username', None)
+    return redirect(url_for('index'))
 if __name__ == '__main__':
     app.run()

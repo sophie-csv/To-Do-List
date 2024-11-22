@@ -6,6 +6,11 @@
 </head>
 <body>
 <h1>My Task List</h1>
+<h2>Welcome back {{ username }}</h2>
+
+<form action="/logout">
+    <input type="submit" value="Logout"><br>
+</form>
 <ol>
     {% for task in tasklist %}
         <li>{{ task }}</li>
