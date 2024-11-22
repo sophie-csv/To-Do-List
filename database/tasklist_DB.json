@@ -1,5 +1,1 @@
-{
-  "jane1:": {
-    "tasks": []
-  }
-}
+{"jane1": {"tasks": ["hello", "meow"]}}

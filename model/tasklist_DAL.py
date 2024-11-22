@@ -37,3 +37,7 @@ def remove_task(user, task):
     data = get_db_as_dict()
     data[user]['tasks'].remove(task)
     write_to_db(data)
+
+def get_users_as_list():
+    data = get_db_as_dict()
+    return list(data)
